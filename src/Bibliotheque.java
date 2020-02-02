@@ -180,7 +180,7 @@ public class Bibliotheque implements Serializable{
        Bibliotheque b = new Bibliotheque();
        String[] auteur={"auteur"};
        Document d= new Livre("111","java",auteur,"editeur",2019,3,300,4,"science");
-       d.setPdf("http://dotprojectmiola.rf.gd/pdf/uml.pdf?i=1");
+       d.setPdf("http://dotprojectmiola.rf.gd/pdf");
        b.AjouterDocument(d);
        Personne p=new Professeur("1111","nom","prenom","matiere","123456");
        b.AjouterAdherent(p);
