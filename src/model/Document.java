@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,7 +12,7 @@ package model;
  *
  * @author Cours
  */
-public abstract class Document {
+public abstract class Document implements Serializable{
     
     final private String isbn;
     final private String titre;
@@ -20,6 +22,7 @@ public abstract class Document {
     private int exemplaires;
     private final int numero;
     static private int nb=0;
+    private String pdf ;
     
     Document(String isbn,String titre, String[] auteur,String editeur,int edition,int exemplaires  ){
         this.isbn=isbn;
@@ -42,6 +45,12 @@ public abstract class Document {
                 "Edition: "+edition+
                 "Nombre d'exemplaires: "+exemplaires;
                 
+    }
+    public void setPdf(String url){
+        pdf=url;
+    }
+    public String getPdf(){
+        return pdf;
     }
     
     void incrementer(){

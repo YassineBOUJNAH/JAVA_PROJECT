@@ -176,9 +176,11 @@ public class Bibliotheque implements Serializable{
 
    
     public static void main(String[] args) throws IOException, SQLException {
+       
        Bibliotheque b = new Bibliotheque();
        String[] auteur={"auteur"};
-       Document d= new Livre("111111","java",auteur,"editeur",2019,3,300,4,"science");
+       Document d= new Livre("111","java",auteur,"editeur",2019,3,300,4,"science");
+       d.setPdf("http://dotprojectmiola.rf.gd/pdf/uml.pdf?i=1");
        b.AjouterDocument(d);
        Personne p=new Professeur("1111","nom","prenom","matiere","123456");
        b.AjouterAdherent(p);
@@ -206,11 +208,14 @@ public class Bibliotheque implements Serializable{
                 sortie.write("ok\n");
                 
                 sortie.flush();
-                /*String choix=entree.readLine();
+                while(true){
+                String choix=entree.readLine();
                 if(choix.equals("isbn")){
                     String isbn=entree.readLine();
+                    System.out.println(isbn);
                     Document doc=b.getDocumentByISBN(isbn);
                     sortieObject.writeObject(doc);
+       
                     sortieObject.flush();
                 }
                 else if(choix.equals("titre")){
@@ -227,8 +232,8 @@ public class Bibliotheque implements Serializable{
                     String isbn=entree.readLine();
                     LinkedList<Document> docs=b.getDocumentByAuteur(isbn);
                     sortieObject.writeObject(docs);
-                }*/
-                
+                }
+                }
             }
        }
 }
