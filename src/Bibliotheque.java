@@ -185,10 +185,10 @@ public class Bibliotheque implements Serializable{
       
        
        //Second Document
-       Document d2 = new Livre("222","java2",auteur,"editeur",2019,3,300,4,"science");
+       Document d2 = new Livre("222","java2",auteur,"talhi",2019,3,300,4,"science");
        d2.setPdf("https://pdfhost.io/v/HoJS6rrF_CH_1.pdf"); 
        
-       Document d3 = new Livre("333","java2",auteur,"editeur",2019,3,300,4,"science");
+       Document d3 = new Livre("333","java2",auteur,"talhi",2019,3,300,4,"science");
        d3.setPdf("https://pdfhost.io/v/HoJS6rrF_CH_1.pdf");  
        
        
@@ -241,10 +241,15 @@ public class Bibliotheque implements Serializable{
                     sortieObject.writeObject(doc);   
                     sortieObject.flush();
                 }
-                 else if(choix.equals("editeur")){
-                    String isbn=entree.readLine();
-                    LinkedList<Document> docs=b.getDocumentByEditeur(isbn);
-                    //sortieObject.writeObject(docs);
+                 else if(choix.equals("editeur")){ 
+                     
+                    String editeur=entree.readLine(); 
+                    System.out.print(editeur);
+                    LinkedList<Document> docs=b.getDocumentByEditeur(editeur);
+                    sortieObject.writeObject(docs); 
+                    sortieObject.flush();
+                    
+                    
                 }
                  else if(choix.equals("auteur")){
                     String isbn=entree.readLine();
