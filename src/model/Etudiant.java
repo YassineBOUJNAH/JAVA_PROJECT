@@ -13,7 +13,7 @@ package model;
 public class Etudiant extends Personne{
     final private String cne;
     
-    Etudiant(String cin,String nom,String prenom,String matiere,String cne){
+   public Etudiant(String cin,String nom,String prenom,String matiere,String cne){
        super(cin,nom,prenom,3,"passwd");
        this.cne=cne;
     }

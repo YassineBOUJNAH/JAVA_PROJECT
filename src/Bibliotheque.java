@@ -150,9 +150,9 @@ public class Bibliotheque implements Serializable{
         pass=pass+spe[r.nextInt(num.length)];
         return pass;
     }
-    boolean  connexion(String login, String password) throws SQLException{
+    boolean  connexion(String login, String password ,String type) throws SQLException{
         
-         con = DbConnection.getConnection();
+        /*  con = DbConnection.getConnection();
 
          String sql = "SELECT * FROM personne Where cin = ? and password = ?";
             try {
@@ -170,7 +170,32 @@ public class Bibliotheque implements Serializable{
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
             }
-        return true;
+        return true; */  
+          if (type.equalsIgnoreCase("etudiant")){
+         Etudiant e = null;
+        for(Personne p : this.emprunteurs){
+            if(p.getClass().getName().equals("model.Etudiant")) {
+                e=(Etudiant) p;
+                if(e.getCne().equals(login) && e.getPassword().equals(password))
+                    return true;
+            }
+                    
+        }
+      }
+      if (type.equalsIgnoreCase("professeur")){
+         Professeur e = null;
+        for(Personne p : this.emprunteurs){
+         
+            if(p.getClass().getName().equals("model.Professeur")) {
+                e=(Professeur) p;
+                if(e.getCin().equals(login) && e.getPassword().equals(password))
+                    return true;
+            }
+                    
+        }
+      }
+        return false;
+         
             
     }
 
@@ -181,14 +206,11 @@ public class Bibliotheque implements Serializable{
        String[] auteur={"auteur"}; 
        //First Document
        Document d1= new Livre("111","java",auteur,"editeur",2019,3,300,4,"science");
-       d1.setPdf("http://dotprojectmiola.rf.gd/pdf"); 
-      
-       
-       //Second Document
+       d1.setPdf("http://dotprojectmiola.rf.gd/pdf");
+       //Second Document   
        Document d2 = new Livre("222","java2",auteur,"talhi",2019,3,300,4,"science");
        d2.setPdf("https://pdfhost.io/v/HoJS6rrF_CH_1.pdf"); 
-       
-       Document d3 = new Livre("333","java2",auteur,"talhi",2019,3,300,4,"science");
+       Document d3 = new Livre("333","java2",auteur,"talhi",2019,3,300,4,"science");   
        d3.setPdf("https://pdfhost.io/v/HoJS6rrF_CH_1.pdf");  
        
        
@@ -199,7 +221,8 @@ public class Bibliotheque implements Serializable{
        
        Personne p=new Professeur("1111","nom","prenom","matiere","123456");
        b.AjouterAdherent(p);
-      
+        Etudiant p2=new Etudiant("555","Boujnah","yassine","matier","555");
+      b.AjouterAdherent(p2);
         int port=8889;
         ServerSocket sersoc = new ServerSocket (port) ;
         while (true)
@@ -214,12 +237,13 @@ public class Bibliotheque implements Serializable{
           OutputStream flux2 = soc.getOutputStream() ;
            OutputStreamWriter sortie = new OutputStreamWriter (flux2) ;
            ObjectOutputStream sortieObject=new ObjectOutputStream(flux2);
-            
+                String type = entree.readLine() ;
+            System.out.println("type "+type+"recu");
             String login = entree.readLine() ;
             System.out.println("login "+login+"recu");
             String pass = entree.readLine() ;
             System.out.println("password "+pass+"recu");
-            if(b.connexion(login,pass)){
+            if(b.connexion(login,pass,type)){
                 sortie.write("ok\n");
                 
                 sortie.flush();
