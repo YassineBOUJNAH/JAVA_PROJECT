@@ -87,7 +87,7 @@ public class Bibliotheque implements Serializable{
     LinkedList<Document> getDocumentsByTitre(String titre){
     LinkedList<Document> documentsByTitre=new LinkedList<Document>();
      for(Document d:documents ){
-            if(d.getIsbn().equals(titre)){
+            if(d.getTitre().equals(titre)){
                  documentsByTitre.add(d);
             }
             
@@ -178,10 +178,25 @@ public class Bibliotheque implements Serializable{
     public static void main(String[] args) throws IOException, SQLException {
        
        Bibliotheque b = new Bibliotheque();
-       String[] auteur={"auteur"};
-       Document d= new Livre("111","java",auteur,"editeur",2019,3,300,4,"science");
-       d.setPdf("http://dotprojectmiola.rf.gd/pdf");
-       b.AjouterDocument(d);
+       String[] auteur={"auteur"}; 
+       //First Document
+       Document d1= new Livre("111","java",auteur,"editeur",2019,3,300,4,"science");
+       d1.setPdf("http://dotprojectmiola.rf.gd/pdf"); 
+      
+       
+       //Second Document
+       Document d2 = new Livre("222","java2",auteur,"editeur",2019,3,300,4,"science");
+       d2.setPdf("https://pdfhost.io/v/HoJS6rrF_CH_1.pdf"); 
+       
+       Document d3 = new Livre("333","java2",auteur,"editeur",2019,3,300,4,"science");
+       d3.setPdf("https://pdfhost.io/v/HoJS6rrF_CH_1.pdf");  
+       
+       
+       
+       b.AjouterDocument(d1); 
+       b.AjouterDocument(d2); 
+       b.AjouterDocument(d3);
+       
        Personne p=new Professeur("1111","nom","prenom","matiere","123456");
        b.AjouterAdherent(p);
       
@@ -213,20 +228,23 @@ public class Bibliotheque implements Serializable{
                 if(choix.equals("isbn")){
                     String isbn=entree.readLine();
                     System.out.println(isbn);
-                    Document doc=b.getDocumentByISBN(isbn);
+                    Document doc= b.getDocumentByISBN(isbn);
                     sortieObject.writeObject(doc);
        
                     sortieObject.flush();
                 }
-                else if(choix.equals("titre")){
-                    String isbn=entree.readLine();
-                    LinkedList<Document> docs=b.getDocumentsByTitre(isbn);
-                    sortieObject.writeObject(docs);
+                else if(choix.equals("titre")){ 
+                    
+                    String titre = entree.readLine(); 
+                    System.out.print(titre);    
+                    LinkedList<Document> doc = b.getDocumentsByTitre(titre);  
+                    sortieObject.writeObject(doc);   
+                    sortieObject.flush();
                 }
                  else if(choix.equals("editeur")){
                     String isbn=entree.readLine();
                     LinkedList<Document> docs=b.getDocumentByEditeur(isbn);
-                    sortieObject.writeObject(docs);
+                    //sortieObject.writeObject(docs);
                 }
                  else if(choix.equals("auteur")){
                     String isbn=entree.readLine();
